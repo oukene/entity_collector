@@ -16,7 +16,7 @@
     "options": {
         "step": {
             "init": {
-                "title": "State Counter Options",
+                "title": "Entity Collector Options",
                 "data": {
                     "add_another": "Select to add a entity"
                 },
@@ -25,7 +25,7 @@
             "entity": {
                 "title": "add a counter",
                 "data": {
-                    "origin_entity": "Enter the entity to be detected",
+                    "origin_entity": "Please enter the original entity id",
                     "name": "Enter the name of the sensor to be created"
                 }
             }
