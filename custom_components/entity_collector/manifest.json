@@ -1,0 +1,16 @@
+{
+  "domain": "entity_collector",
+  "name": "Entity Collector",
+  "config_flow": true,
+  "documentation": "https://github.com/oukene/entity_collector",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@oukene"
+  ],
+  "iot_class": "",
+  "version": "1.0.0"
+}
