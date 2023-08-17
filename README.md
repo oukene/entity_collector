@@ -15,3 +15,19 @@ HomeAssistant 에서 구성요소를 하나의 디바이스로 모아보기 위�
 <br/>
 <br/>
 
+[현재 지원되는 엔티티 목록]<br>
+* sensor<br>
+* binary_sensor<br>
+* switch<br>
+* input_boolean<br>
+* number<br>
+* input_number<br>
+* button<br>
+* fan<br>
+* cover<br>
+* climate<br>
+* select<br>
+* input_select<br>
+* light<br>
+* text<br>
+* input_text<br>
