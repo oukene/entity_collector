@@ -2,7 +2,7 @@ import logging
 
 from .const import *
 import re
-from homeassistant.components.fan import FanEntity, ATTR_OSCILLATING, ATTR_DIRECTION, ATTR_PERCENTAGE, ATTR_PERCENTAGE_STEP, ATTR_PRESET_MODE, ATTR_PRESET_MODES
+from homeassistant.components.fan import *
 
 from .device import EntityBase, async_setup
 
@@ -14,9 +14,9 @@ PLATFORM = "fan"
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Add sensors for passed config_entry in HA."""
-    await async_setup(hass, PLATFORM, EntityCollection, config_entry, async_add_devices)
+    await async_setup(hass, PLATFORM, EntityCollector, config_entry, async_add_devices)
 
-class EntityCollection(EntityBase, FanEntity):
+class EntityCollector(EntityBase, FanEntity):
 
     # platform property #############################################################################
     @property
@@ -28,31 +28,31 @@ class EntityCollection(EntityBase, FanEntity):
 
     @property
     def current_direction(self) -> str | None:
-        return self._attributes[ATTR_DIRECTION]
+        return self._attributes.get(ATTR_DIRECTION)
 
     @property
     def oscillate(self, oscillating: bool) -> None:
-        return self._attributes[ATTR_OSCILLATING]
+        return self._attributes.get(ATTR_OSCILLATING)
 
     @property
     def percentage(self) -> int | None:
-        return self._attributes[ATTR_PERCENTAGE]
+        return self._attributes.get(ATTR_PERCENTAGE)
 
     @property
     def percentage_step(self) -> float:
-        return self._attributes[ATTR_PERCENTAGE_STEP]
+        return self._attributes.get(ATTR_PERCENTAGE_STEP)
 
     @property
     def preset_modes(self) -> list[str] | None:
-        return self._attributes[ATTR_PRESET_MODES]
+        return self._attributes.get(ATTR_PRESET_MODES)
     
     @property
     def preset_mode(self) -> str | None:
-        return self._attributes[ATTR_PRESET_MODE]
+        return self._attributes.get(ATTR_PRESET_MODE)
 
     @property
     def supported_features(self) -> int | None:
-        return self._attributes["supported_features"]
+        return self._attributes.get("supported_features") if self._attributes.get("supported_features") != None else FanEntityFeature.SET_SPEED
 
     # method ########################################################################################
 
@@ -81,6 +81,5 @@ class EntityCollection(EntityBase, FanEntity):
 
     def oscillate(self, oscillating: bool) -> None:
         """Oscillate the fan."""
-        self._state = "off"
-        self.hass.services.call('fan', 'turn_off', {
+        self.hass.services.call('fan', 'oscillate', {
                                         "entity_id": self._origin_entity, "oscillating" : oscillating }, False)

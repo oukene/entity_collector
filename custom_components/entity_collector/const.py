@@ -20,4 +20,9 @@ ENTITY_TYPE = {
     "number" : { "number", "input_number" },
     "button" : { "button" },
     "fan" : { "fan" },
+    "cover": { "cover" },
+    "climate": { "climate" },
+    "select": { "select", "input_select" },
+    "light": { "light" },
+    "text": { "text", "input_text" }
 }

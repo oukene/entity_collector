@@ -14,7 +14,7 @@ from homeassistant.helpers.device_registry import (
 )
 
 from .const import *
-from homeassistant.helpers.selector import selector
+from homeassistant.helpers import selector
 from homeassistant import config_entries, exceptions
 from homeassistant.core import callback
 
@@ -198,11 +198,20 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                 #self.data["modifydatetime"] = datetime.now()
                 #return self.async_create_entry(title=NAME, data=self.data)
 
+        entity = []
+        for key, value in ENTITY_TYPE.items():
+            #_LOGGER.debug("key : " + str(key) + ", value : " + str(value))
+            for e in value:
+                entity.append(e)
+        exclude_entity = list(self.data[CONF_ENTITIES])
+        #_LOGGER.debug("selector entity : " + str(entity))
+        #_LOGGER.debug("conf entities : " + str(exclude_entity))
         return self.async_show_form(
             step_id="entity",
             data_schema=vol.Schema(
                     {
-                        vol.Required(CONF_ORIGIN_ENTITY, default=None): selector({"entity": {}}),
+                        
+                        vol.Required(CONF_ORIGIN_ENTITY, default=None): selector.EntitySelector(selector.EntitySelectorConfig(domain=entity, exclude_entities=exclude_entity )),
                         vol.Optional(CONF_NAME, default=""): cv.string,
                         #vol.Optional(CONF_ADD_ANODHER): cv.boolean,
                     }

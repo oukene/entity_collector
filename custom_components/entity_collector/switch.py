@@ -2,7 +2,7 @@ import logging
 
 from .const import *
 import re
-from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.switch import *
 
 from .device import EntityBase, async_setup
 
@@ -14,9 +14,9 @@ PLATFORM = "switch"
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Add sensors for passed config_entry in HA."""
-    await async_setup(hass, PLATFORM, EntityCollection, config_entry, async_add_devices)
+    await async_setup(hass, PLATFORM, EntityCollector, config_entry, async_add_devices)
 
-class EntityCollection(EntityBase, SwitchEntity):
+class EntityCollector(EntityBase, SwitchEntity):
 
     # platform property #############################################################################
     @property
@@ -29,12 +29,10 @@ class EntityCollection(EntityBase, SwitchEntity):
     # method ########################################################################################
 
     def turn_on(self, **kwargs) -> None:
-        self._state = "on"
         self.hass.services.call('homeassistant', 'turn_on', {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        self._state = "off"
         self.hass.services.call('homeassistant', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 

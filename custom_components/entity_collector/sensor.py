@@ -2,7 +2,7 @@ import logging
 
 from .const import *
 import re
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import *
 
 from .device import EntityBase, async_setup
 
@@ -14,9 +14,9 @@ PLATFORM = "sensor"
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Add sensors for passed config_entry in HA."""
-    await async_setup(hass, PLATFORM, EntityCollection, config_entry, async_add_devices)
+    await async_setup(hass, PLATFORM, EntityCollector, config_entry, async_add_devices)
 
-class EntityCollection(EntityBase, SensorEntity):
+class EntityCollector(EntityBase, SensorEntity):
 
     # platform property ##############################################################################
     @property

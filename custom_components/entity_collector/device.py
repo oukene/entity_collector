@@ -204,3 +204,7 @@ class EntityBase(Entity):
         """Return a unique ID."""
         if self._unique_id is not None:
             return self._unique_id
+
+    @property
+    def state(self):
+        return self._state

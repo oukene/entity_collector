@@ -18,7 +18,6 @@ async def async_setup(hass: HomeAssistant, config: dict):
     # common/preferred as it allows a separate instance of your class for each
     # instance that has been created in the UI.
     hass.data.setdefault(DOMAIN, {})
-
     return True
 
 
