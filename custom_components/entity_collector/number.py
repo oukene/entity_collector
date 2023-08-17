@@ -26,15 +26,15 @@ class EntityCollector(EntityBase, NumberEntity):
     
     @property
     def native_max_value(self) -> float:
-        return self._attributes.get(ATTR_MAX)
+        return self._attributes.get(ATTR_MAX) if self._attributes.get(ATTR_MAX) != None else DEFAULT_MAX_VALUE
 
     @property
     def native_min_value(self) -> float:
-        return self._attributes.get(ATTR_MIN)
+        return self._attributes.get(ATTR_MIN) if self._attributes.get(ATTR_MIN) != None else DEFAULT_MIN_VALUE
 
     @property
     def native_step(self) -> float:
-        return self._attributes.get(ATTR_STEP)
+        return self._attributes.get(ATTR_STEP) if self._attributes.get(ATTR_STEP) != None else DEFAULT_STEP
 
     @property
     def mode(self) -> float:
