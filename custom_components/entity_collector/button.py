@@ -21,7 +21,10 @@ class EntityCollector(EntityBase, ButtonEntity):
     # platform property ##############################################################################
 
     # method #########################################################################################
-    def press(self):
+    async def async_press(self) -> None:
+        return await self.hass.services.async_call('button', 'press', {
+                                        "entity_id": self._origin_entity}, False)
+    def async_press(self):
         """Update the state."""
-        self.hass.services.call('button', 'press', {
+        return self.hass.services.call('button', 'press', {
                                         "entity_id": self._origin_entity}, False)

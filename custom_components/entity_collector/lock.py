@@ -48,15 +48,27 @@ class EntityCollector(EntityBase, LockEntity):
         return self._attributes.get(ATTR_SUPPORTED_FEATURES) if self._attributes.get(ATTR_SUPPORTED_FEATURES) != None else LockEntityFeature.OPEN
 
     # method ########################################################################################
+    async def async_lock(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('lock', 'lock', {
+                                        "entity_id": self._origin_entity}, False)
+
     def lock(self, **kwargs: Any) -> None:
         self.hass.services.call('lock', 'lock', {
                                         "entity_id": self._origin_entity}, False)
 
+    async def async_unlock(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('lock', 'unlock', {
+                                        "entity_id": self._origin_entity}, False)
+
     def unlock(self, **kwargs: Any) -> None:
-        self.hass.services.call('lock', 'unlock', {
+        return self.hass.services.call('lock', 'unlock', {
+                                        "entity_id": self._origin_entity}, False)
+
+    async def async_open(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('lock', 'open', {
                                         "entity_id": self._origin_entity}, False)
 
     def open(self, **kwargs: Any) -> None:
-        self.hass.services.call('lock', 'open', {
+        return self.hass.services.call('lock', 'open', {
                                         "entity_id": self._origin_entity}, False)
 

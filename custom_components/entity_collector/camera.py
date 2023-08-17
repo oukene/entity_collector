@@ -63,19 +63,34 @@ class EntityCollector(EntityBase, Camera):
     # async def stream_source(self) -> str | None:
     #     return await super().stream_source()
 
+    async def async_turn_on(self) -> None:
+        return await self.hass.services.async_call(PLATFORM, 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
+
     def turn_on(self) -> None:
-        self.hass.services.call(PLATFORM, 'turn_on', {
+        return self.hass.services.call(PLATFORM, 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
+
+    async def async_turn_off(self) -> None:
+        return await self.hass.services.async_call(PLATFORM, 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self) -> None:
-        self.hass.services.call(PLATFORM, 'turn_off', {
+        return self.hass.services.call(PLATFORM, 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
+    async def async_enable_motion_detection(self) -> None:
+        return await self.hass.services.async_call(PLATFORM, 'enable_motion_detection', {
+                                        "entity_id": self._origin_entity}, False)
 
     def enable_motion_detection(self) -> None:
-        self.hass.services.call(PLATFORM, 'enable_motion_detection', {
+        return self.hass.services.call(PLATFORM, 'enable_motion_detection', {
+                                        "entity_id": self._origin_entity}, False)
+
+    async def async_disable_motion_detection(self) -> None:
+        return await self.hass.services.async_call(PLATFORM, 'disable_motion_detection', {
                                         "entity_id": self._origin_entity}, False)
 
     def disable_motion_detection(self) -> None:
-        self.hass.services.call(PLATFORM, 'disable_motion_detection', {
+        return self.hass.services.call(PLATFORM, 'disable_motion_detection', {
                                         "entity_id": self._origin_entity}, False)

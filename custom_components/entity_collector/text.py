@@ -41,10 +41,18 @@ class EntityCollector(EntityBase, TextEntity):
 
 
     # method #########################################################################################
-    def set_value(self, value: str) -> None:
+    async def async_set_value(self, value: str) -> None:
         if re.search("^input_text.", self._origin_entity):
-            self.hass.services.call('input_text', 'set_value', {
+            return await self.hass.services.async_call('input_text', 'set_value', {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
         elif re.search("^text.", self._origin_entity):
-            self.hass.services.call('text', 'set_value', {
+            return await self.hass.services.async_call('text', 'set_value', {
+                                            "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
+
+    def set_value(self, value: str) -> None:
+        if re.search("^input_text.", self._origin_entity):
+            return self.hass.services.call('input_text', 'set_value', {
+                                            "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
+        elif re.search("^text.", self._origin_entity):
+            return self.hass.services.call('text', 'set_value', {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)

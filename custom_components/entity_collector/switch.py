@@ -5,6 +5,7 @@ import re
 from homeassistant.components.switch import *
 
 from .device import EntityBase, async_setup
+from typing import Any
 
 from homeassistant.const import *
 
@@ -27,12 +28,19 @@ class EntityCollector(EntityBase, SwitchEntity):
             return False
 
     # method ########################################################################################
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('homeassistant', 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
 
     def turn_on(self, **kwargs) -> None:
-        self.hass.services.call(PLATFORM, 'turn_on', {
+        self.hass.services.call('homeassistant', 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('homeassistant', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        self.hass.services.call(PLATFORM, 'turn_off', {
+        self.hass.services.call('homeassistant', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 

@@ -80,7 +80,6 @@ class EntityCollector(EntityBase, LightEntity):
         return self._attributes.get(ATTR_XY_COLOR)
     
     # method ########################################################################################
-
     def turn_on(self, **kwargs) -> None:
         self.hass.services.call('light', 'turn_on', {
                                         "entity_id": self._origin_entity}, False)
@@ -91,7 +90,11 @@ class EntityCollector(EntityBase, LightEntity):
             service_data[key] = value
             self.hass.services.call('light', 'turn_on', service_data, False)
 
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('light', 'turn_off', {
+                                        "entity_id": self._origin_entity}, False)
+
     def turn_off(self, **kwargs) -> None:
-        self.hass.services.call('light', 'turn_off', {
+        return self.hass.services.call('light', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 

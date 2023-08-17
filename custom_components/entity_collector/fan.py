@@ -56,30 +56,54 @@ class EntityCollector(EntityBase, FanEntity):
 
     # method ########################################################################################
 
+    async def async_turn_on(self, percentage: int | None = None, preset_mode: str | None = None, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('fan', 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
+
     def turn_on(self, **kwargs) -> None:
-        self.hass.services.call('fan', 'turn_on', {
+        return self.hass.services.call('fan', 'turn_on', {
+                                        "entity_id": self._origin_entity}, False)
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call('fan', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        self.hass.services.call('fan', 'turn_off', {
+        return self.hass.services.call('fan', 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
+    async def async_set_direction(self, direction: str) -> None:
+        return await self.hass.services.async_call('fan', 'set_direction', {
+                                        "entity_id": self._origin_entity, "direction" : direction }, False)
+
     def set_direction(self, direction: str) -> None:
-        self.hass.services.call('fan', 'set_direction', {
+        return self.hass.services.call('fan', 'set_direction', {
                                         "entity_id": self._origin_entity, "direction" : direction }, False)
     
+    async def async_set_preset_mode(self, preset_mode: str) -> None:
+        return await self.hass.services.async_call('fan', 'set_preset_mode', {
+                                        "entity_id": self._origin_entity, "preset_mode" : preset_mode }, False)
+        
+
     def set_preset_mode(self, preset_mode: str) -> None:
         """Set the preset mode of the fan."""
-        self.hass.services.call('fan', 'set_preset_mode', {
+        return self.hass.services.call('fan', 'set_preset_mode', {
                                         "entity_id": self._origin_entity, "preset_mode" : preset_mode }, False)
+
+    async def async_set_percentage(self, percentage: int) -> None:
+        return await self.hass.services.async_call('fan', 'set_percentage', {
+                                        "entity_id": self._origin_entity, "percentage" : percentage }, False)
 
     def set_percentage(self, percentage: int) -> None:
         """Set the speed percentage of the fan."""
-        self.hass.services.call('fan', 'set_percentage', {
+        return self.hass.services.call('fan', 'set_percentage', {
                                         "entity_id": self._origin_entity, "percentage" : percentage }, False)
 
+    async def async_oscillate(self, oscillating: bool) -> None:
+        return await self.hass.services.async_call('fan', 'oscillate', {
+                                        "entity_id": self._origin_entity, "oscillating" : oscillating }, False)
 
     def oscillate(self, oscillating: bool) -> None:
         """Oscillate the fan."""
-        self.hass.services.call('fan', 'oscillate', {
+        return self.hass.services.call('fan', 'oscillate', {
                                         "entity_id": self._origin_entity, "oscillating" : oscillating }, False)
