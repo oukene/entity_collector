@@ -24,5 +24,8 @@ ENTITY_TYPE = {
     "climate": { "climate" },
     "select": { "select", "input_select" },
     "light": { "light" },
-    "text": { "text", "input_text" }
+    "text": { "text", "input_text" },
+    "lock": { "lock" },
+    "camera": { "camera" },
+    "media_player": { "media_player" },
 }

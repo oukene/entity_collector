@@ -29,10 +29,10 @@ class EntityCollector(EntityBase, SwitchEntity):
     # method ########################################################################################
 
     def turn_on(self, **kwargs) -> None:
-        self.hass.services.call('homeassistant', 'turn_on', {
+        self.hass.services.call(PLATFORM, 'turn_on', {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        self.hass.services.call('homeassistant', 'turn_off', {
+        self.hass.services.call(PLATFORM, 'turn_off', {
                                         "entity_id": self._origin_entity}, False)
 
