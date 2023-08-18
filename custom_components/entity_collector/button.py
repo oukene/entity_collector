@@ -2,7 +2,7 @@ import logging
 
 from .const import *
 import re
-from homeassistant.components.button import ButtonEntity
+from homeassistant.components.button import *
 
 from .device import EntityBase, async_setup
 
@@ -22,9 +22,9 @@ class EntityCollector(EntityBase, ButtonEntity):
 
     # method #########################################################################################
     async def async_press(self) -> None:
-        return await self.hass.services.async_call('button', 'press', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_PRESS, {
                                         "entity_id": self._origin_entity}, False)
     def async_press(self):
         """Update the state."""
-        return self.hass.services.call('button', 'press', {
+        return self.hass.services.call(PLATFORM, SERVICE_PRESS, {
                                         "entity_id": self._origin_entity}, False)

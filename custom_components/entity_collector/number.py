@@ -3,6 +3,7 @@ import logging
 from .const import *
 import re
 from homeassistant.components.number import *
+from homeassistant.components.number import SERVICE_SET_VALUE
 
 from .device import EntityBase, async_setup
 
@@ -46,21 +47,21 @@ class EntityCollector(EntityBase, NumberEntity):
         _LOGGER.debug("call set native value")
         if re.search("^input_number.", self._origin_entity):
             _LOGGER.debug("call input_number")
-            return await self.hass.services.async_call('input_number', 'set_value', {
+            return await self.hass.services.async_call('input_number', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, "value" : value }, False)
         elif re.search("^number.", self._origin_entity):
             _LOGGER.debug("call number")
-            return await self.hass.services.async_call('number', 'set_value', {
+            return await self.hass.services.async_call(PLATFORM, SERVICE_SET_VALUE, {
                                         "entity_id": self._origin_entity, "value" : value }, False)
                                         
     def set_native_value(self, value: float) -> None:
         _LOGGER.debug("call set native value")
         if re.search("^input_number.", self._origin_entity):
             _LOGGER.debug("call input_number")
-            return self.hass.services.call('input_number', 'set_value', {
+            return self.hass.services.call('input_number', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, "value" : value }, False)
         elif re.search("^number.", self._origin_entity):
             _LOGGER.debug("call number")
-            return self.hass.services.call('number', 'set_value', {
+            return self.hass.services.call(PLATFORM, SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, "value" : value }, False)
 

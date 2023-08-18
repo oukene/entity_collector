@@ -125,77 +125,77 @@ class EntityCollector(EntityBase, ClimateEntity):
 
     # method ########################################################################################
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
-        return await self.hass.services.async_call('climate', 'set_hvac_mode', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_HVAC_MODE, {
                                         "entity_id": self._origin_entity, ATTR_HVAC_MODE : hvac_mode }, False)
 
     def set_hvac_mode(self, hvac_mode):
         """Set new target hvac mode."""
-        return self.hass.services.call('climate', 'set_hvac_mode', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_HVAC_MODE, {
                                         "entity_id": self._origin_entity, ATTR_HVAC_MODE : hvac_mode }, False)
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
-        return await self.hass.services.async_call('climate', 'set_preset_mode', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_PRESET_MODE, {
                                         "entity_id": self._origin_entity, ATTR_PRESET_MODE : preset_mode }, False)
 
 
     def set_preset_mode(self, preset_mode):
         """Set new target preset mode."""
-        return self.hass.services.call('climate', 'set_preset_mode', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_PRESET_MODE, {
                                         "entity_id": self._origin_entity, ATTR_PRESET_MODE : preset_mode }, False)
 
     async def async_set_fan_mode(self, fan_mode: str) -> None:
-        return await self.hass.services.async_call('climate', 'set_fan_mode', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_FAN_MODE, {
                                         "entity_id": self._origin_entity, ATTR_FAN_MODE : fan_mode }, False)
 
     def set_fan_mode(self, fan_mode):
         """Set new target fan mode."""
-        return self.hass.services.call('climate', 'set_fan_mode', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_FAN_MODE, {
                                         "entity_id": self._origin_entity, ATTR_FAN_MODE : fan_mode }, False)
 
     async def async_set_humidity(self, humidity: int) -> None:
-        return await self.hass.services.async_call('climate', 'set_humidity', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_HUMIDITY, {
                                         "entity_id": self._origin_entity, ATTR_HUMIDITY : humidity }, False)
 
     def set_humidity(self, humidity):
         """Set new target humidity."""
-        return self.hass.services.call('climate', 'set_humidity', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_HUMIDITY, {
                                         "entity_id": self._origin_entity, ATTR_HUMIDITY : humidity }, False)
 
     async def async_set_swing_mode(self, swing_mode: str) -> None:
-        return await self.hass.services.async_call('climate', 'set_swing_mode', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_SWING_MODE, {
                                         "entity_id": self._origin_entity, ATTR_SWING_MODE : swing_mode }, False)
 
     def set_swing_mode(self, swing_mode):
         """Set new target swing operation."""
-        return self.hass.services.call('climate', 'set_swing_mode', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_SWING_MODE, {
                                         "entity_id": self._origin_entity, ATTR_SWING_MODE : swing_mode }, False)
     
     async def async_set_temperature(self, **kwargs) -> None:
-        return await self.hass.services.async_call('climate', 'set_temperature', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_TEMPERATURE, {
                                         "entity_id": self._origin_entity, ATTR_TEMPERATURE : kwargs[ATTR_TEMPERATURE] }, False)
 
     def set_temperature(self, **kwargs):
         """Set new target temperature."""
         #for key, value in kwargs.items():
         #    _LOGGER.error("turn_on key : " + str(key) + ", value : " + str(value))
-        return self.hass.services.call('climate', 'set_temperature', {
+        return self.hass.services.call(PLATFORM, SERVICE_SET_TEMPERATURE, {
                                         "entity_id": self._origin_entity, ATTR_TEMPERATURE : kwargs[ATTR_TEMPERATURE] }, False)
 
     async def async_turn_on(self) -> None:
-        return await self.hass.services.async_call('climate', 'turn_on', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_on(self):
         """Turn auxiliary heater on."""
-        return self.hass.services.call('climate', 'turn_on', {
+        return self.hass.services.call(PLATFORM, SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_turn_off(self) -> None:
-        return await self.hass.services.async_call('climate', 'turn_off', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
 
     def turn_off(self):
         """Turn auxiliary heater off."""
-        return self.hass.services.call('climate', 'turn_off', {
+        return self.hass.services.call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)

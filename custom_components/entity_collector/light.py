@@ -81,7 +81,7 @@ class EntityCollector(EntityBase, LightEntity):
     
     # method ########################################################################################
     def turn_on(self, **kwargs) -> None:
-        self.hass.services.call('light', 'turn_on', {
+        self.hass.services.call(PLATFORM, SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
         for key, value in kwargs.items():
             _LOGGER.debug("turn_on key : " + str(key) + ", value : " + str(value))
@@ -95,6 +95,6 @@ class EntityCollector(EntityBase, LightEntity):
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        return self.hass.services.call('light', 'turn_off', {
+        return self.hass.services.call(PLATFORM, SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 

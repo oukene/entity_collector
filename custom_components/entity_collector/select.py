@@ -30,16 +30,16 @@ class EntityCollector(EntityBase, SelectEntity):
     # method #########################################################################################
     async def async_select_option(self, option: str) -> None:
         if re.search("^input_select.", self._origin_entity):
-            return await self.hass.services.async_call('input_select', 'select_option', {
+            return await self.hass.services.async_call('input_select', SERVICE_SELECT_OPTION, {
                                             "entity_id": self._origin_entity,  ATTR_OPTION: option }, False)
         elif re.search("^select.", self._origin_entity):
-            return await self.hass.services.async_call('select', 'select_option', {
+            return await self.hass.services.async_call(PLATFORM, SERVICE_SELECT_OPTION, {
                                             "entity_id": self._origin_entity,  ATTR_OPTION: option }, False)
 
     def select_option(self, option: str) -> None:
         if re.search("^input_select.", self._origin_entity):
-            return self.hass.services.call('input_select', 'select_option', {
+            return self.hass.services.call('input_select', SERVICE_SELECT_OPTION, {
                                             "entity_id": self._origin_entity,  ATTR_OPTION: option }, False)
         elif re.search("^select.", self._origin_entity):
-            return self.hass.services.call('select', 'select_option', {
+            return self.hass.services.call(PLATFORM, SERVICE_SELECT_OPTION, {
                                             "entity_id": self._origin_entity,  ATTR_OPTION: option }, False)

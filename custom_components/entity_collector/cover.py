@@ -45,77 +45,76 @@ class EntityCollector(EntityBase, CoverEntity):
         return self._attributes.get("supported_features") if self._attributes.get("supported_features") != None else CoverEntityFeature.OPEN
 
     # method ########################################################################################
-
     async def async_open_cover(self, **kwargs: Any) -> None:
-        return self.hass.services.async_call('cover', 'open_cover', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_OPEN_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
     def open_cover(self, **kwargs):
         """Open the cover."""
-        return self.hass.services.call('cover', 'open_cover', {
+        return self.hass.services.call(PLATFORM, SERVICE_OPEN_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
     async def async_close_cover(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'close_cover', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_CLOSE_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
     def close_cover(self, **kwargs):
         """Close cover."""
-        return self.hass.services.call('cover', 'close_cover', {
+        return self.hass.services.call(PLATFORM, SERVICE_CLOSE_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
     async def async_set_cover_position(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'close_cover', {
-                                "entity_id": self._origin_entity, "position" : kwargs[ATTR_POSITION] }, False)
+        return await self.hass.services.async_call(PLATFORM, SERVICE_CLOSE_COVER, {
+                                "entity_id": self._origin_entity, ATTR_POSITION : kwargs[ATTR_POSITION] }, False)
 
     def set_cover_position(self, **kwargs):
         """Move the cover to a specific position."""
-        return self.hass.services.call('cover', 'close_cover', {
-                                "entity_id": self._origin_entity, "position" : kwargs[ATTR_POSITION] }, False)
+        return self.hass.services.call(PLATFORM, SERVICE_CLOSE_COVER, {
+                                "entity_id": self._origin_entity, ATTR_POSITION : kwargs[ATTR_POSITION] }, False)
 
     async def async_stop_cover(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'stop_cover', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_STOP_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
     def stop_cover(self, **kwargs):
         """Stop the cover."""
-        return self.hass.services.call('cover', 'stop_cover', {
+        return self.hass.services.call(PLATFORM, SERVICE_STOP_COVER, {
                                 "entity_id": self._origin_entity}, False)
 
-    async def async_open_cover(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'open_cover_tilt', {
+    async def async_open_cover_tilt(self, **kwargs: Any) -> None:
+        return await self.hass.services.async_call(PLATFORM, SERVICE_OPEN_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)
-
+        
     def open_cover_tilt(self, **kwargs):
         """Open the cover tilt."""
-        return self.hass.services.call('cover', 'open_cover_tilt', {
+        return self.hass.services.call(PLATFORM, SERVICE_OPEN_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)
 
     async def async_close_cover_tilt(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'close_cover_tilt', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_CLOSE_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)
 
     def close_cover_tilt(self, **kwargs):
         """Close the cover tilt."""
-        return self.hass.services.call('cover', 'close_cover_tilt', {
+        return self.hass.services.call(PLATFORM, SERVICE_CLOSE_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)
 
     async def async_set_cover_tilt_position(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'set_cover_tilt_position', {
-                                "entity_id": self._origin_entity, "position" : kwargs[ATTR_POSITION] }, False)
+        return await self.hass.services.async_call(PLATFORM, SERVICE_SET_COVER_TILT_POSITION, {
+                                "entity_id": self._origin_entity, ATTR_POSITION : kwargs[ATTR_POSITION] }, False)
 
     def set_cover_tilt_position(self, **kwargs):
         """Move the cover tilt to a specific position."""
-        return self.hass.services.call('cover', 'set_cover_tilt_position', {
-                                "entity_id": self._origin_entity, "position" : kwargs[ATTR_POSITION] }, False)
+        return self.hass.services.call(PLATFORM, SERVICE_SET_COVER_TILT_POSITION, {
+                                "entity_id": self._origin_entity, ATTR_POSITION : kwargs[ATTR_POSITION] }, False)
 
 
     async def async_stop_cover_tilt(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('cover', 'stop_cover_tilt', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_STOP_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)
 
 
     def stop_cover_tilt(self, **kwargs):
         """Stop the cover."""
-        return self.hass.services.call('cover', 'stop_cover_tilt', {
+        return self.hass.services.call(PLATFORM, SERVICE_STOP_COVER_TILT, {
                                 "entity_id": self._origin_entity}, False)

@@ -102,89 +102,89 @@ class EntityCollector(EntityBase, MediaPlayerEntity):
         self.hass.services.call(PLATFORM, 'play_media', service_data, False)
 
     def clear_playlist(self) -> None:
-        self.hass.services.call(PLATFORM, 'clear_playlist', {
+        self.hass.services.call(PLATFORM, SERVICE_CLEAR_PLAYLIST, {
                                         "entity_id": self._origin_entity}, False)
 
     def join_players(self, group_members: list[str]) -> None:
-        self.hass.services.call(PLATFORM, 'join', {
+        self.hass.services.call(PLATFORM, SERVICE_JOIN, {
                                         "entity_id": self._origin_entity, ATTR_GROUP_MEMBERS : group_members}, False)
     def media_next_track(self) -> None:
-        self.hass.services.call(PLATFORM, 'media_next_track', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_NEXT_TRACK, {
                                         "entity_id": self._origin_entity}, False)
 
     def media_pause(self) -> None:
-        self.hass.services.call(PLATFORM, 'media_pause', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_STOP, {
                                         "entity_id": self._origin_entity}, False)
 
     def media_play(self) -> None:
-        self.hass.services.call(PLATFORM, 'media_play', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_PLAY, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_media_play_pause(self) -> None:
-        await self.hass.services.async_call(PLATFORM, 'media_play_pause', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_MEDIA_PLAY_PAUSE, {
                                         "entity_id": self._origin_entity}, False)
 
     def media_previous_track(self) -> None:
-        self.hass.services.call(PLATFORM, 'media_previous_track', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_PREVIOUS_TRACK, {
                                         "entity_id": self._origin_entity}, False)
 
     def media_seek(self, position: float) -> None:
-        self.hass.services.call(PLATFORM, 'media_seek', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_SEEK, {
                                         "entity_id": self._origin_entity, ATTR_MEDIA_SEEK_POSITION : position}, False)
 
     def media_stop(self) -> None:
-        self.hass.services.call(PLATFORM, 'media_stop', {
+        self.hass.services.call(PLATFORM, SERVICE_MEDIA_STOP, {
                                         "entity_id": self._origin_entity}, False)
         
     def set_repeat(self, repeat: RepeatMode) -> None:
-        self.hass.services.call(PLATFORM, 'repeat_set', {
+        self.hass.services.call(PLATFORM, SERVICE_REPEAT_SET, {
                                         "entity_id": self._origin_entity, "repeat" : repeat}, False)
 
     def select_sound_mode(self, sound_mode: str) -> None:
-        self.hass.services.call(PLATFORM, 'select_sound_mode', {
+        self.hass.services.call(PLATFORM, SERVICE_SELECT_SOUND_MODE, {
                                         "entity_id": self._origin_entity, ATTR_SOUND_MODE: sound_mode}, False)
 
     def select_source(self, source: str) -> None:
-        self.hass.services.call(PLATFORM, 'select_source', {
+        self.hass.services.call(PLATFORM, SERVICE_SELECT_SOURCE, {
                                         "entity_id": self._origin_entity, ATTR_INPUT_SOURCE: source}, False)
 
     def set_shuffle(self, shuffle: bool) -> None:
-        self.hass.services.call(PLATFORM, 'shuffle_set', {
+        self.hass.services.call(PLATFORM, SERVICE_SHUFFLE_SET, {
                                         "entity_id": self._origin_entity, ATTR_MEDIA_SHUFFLE: shuffle}, False)
 
     async def async_toggle(self) -> None:
-        await self.hass.services.async_call(PLATFORM, 'toggle', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_TOGGLE, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_on(self) -> None:
-        self.hass.services.call(PLATFORM, 'turn_on', {
+        self.hass.services.call(PLATFORM, SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self) -> None:
-        self.hass.services.call(PLATFORM, 'turn_off', {
+        self.hass.services.call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
         
     def unjoin_player(self) -> None:
-        self.hass.services.call(PLATFORM, 'unjoin', {
+        self.hass.services.call(PLATFORM, SERVICE_UNJOIN, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_volume_down(self) -> None:
-        await self.hass.services.async_call(PLATFORM, 'volume_down', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_VOLUME_DOWN, {
                                         "entity_id": self._origin_entity}, False)
 
 
     async def async_volume_up(self) -> None:
-        await self.hass.services.async_call(PLATFORM, 'volume_up', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_VOLUME_UP, {
                                         "entity_id": self._origin_entity}, False)
 
 
     async def async_set_volume_level(self, volume: float) -> None:
-        await self.hass.services.async_call(PLATFORM, 'volume_set', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_VOLUME_SET, {
                                         "entity_id": self._origin_entity, ATTR_MEDIA_VOLUME_LEVEL : volume}, False)
 
 
     async def async_mute_volume(self, mute: bool) -> None:
-        await self.hass.services.async_call(PLATFORM, 'volume_mute', {
+        await self.hass.services.async_call(PLATFORM, SERVICE_VOLUME_MUTE, {
                                         "entity_id": self._origin_entity, ATTR_MEDIA_VOLUME_MUTED : mute}, False)
 
 

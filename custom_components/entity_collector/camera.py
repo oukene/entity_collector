@@ -53,44 +53,52 @@ class EntityCollector(EntityBase, Camera):
 
     @property
     def supported_features(self) -> int | None:
-        return self._attributes.get(ATTR_SUPPORTED_FEATURES) if self._attributes.get(ATTR_SUPPORTED_FEATURES) != None else CameraEntityFeature.ON_OFF
+        return self._attributes.get(ATTR_SUPPORTED_FEATURES) if self._attributes.get(ATTR_SUPPORTED_FEATURES) != None else CameraEntityFeature.ON_OFF | CameraEntityFeature.STREAM
     
 
     # method ########################################################################################
-    # def camera_image(self, width: int | None = None, height: int | None = None) -> bytes | None:
-    #     return super().camera_image(width, height)
+    def camera_image(
+        self, width: int | None = None, height: int | None = None
+    ) -> bytes | None:
+        """Return bytes of camera image."""
+        raise NotImplementedError()
 
-    # async def stream_source(self) -> str | None:
-    #     return await super().stream_source()
+    async def async_camera_image(
+        self, width: int | None = None, height: int | None = None
+    ) -> bytes | None:
+        """Return bytes of camera image."""
+
+    async def stream_source(self) -> str | None:
+        return await super().stream_source()
 
     async def async_turn_on(self) -> None:
-        return await self.hass.services.async_call(PLATFORM, 'turn_on', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_on(self) -> None:
-        return self.hass.services.call(PLATFORM, 'turn_on', {
+        return self.hass.services.call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_turn_off(self) -> None:
-        return await self.hass.services.async_call(PLATFORM, 'turn_off', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self) -> None:
-        return self.hass.services.call(PLATFORM, 'turn_off', {
+        return self.hass.services.call(PLATFORM, SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_enable_motion_detection(self) -> None:
-        return await self.hass.services.async_call(PLATFORM, 'enable_motion_detection', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_ENABLE_MOTION, {
                                         "entity_id": self._origin_entity}, False)
 
     def enable_motion_detection(self) -> None:
-        return self.hass.services.call(PLATFORM, 'enable_motion_detection', {
+        return self.hass.services.call(PLATFORM, SERVICE_ENABLE_MOTION, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_disable_motion_detection(self) -> None:
-        return await self.hass.services.async_call(PLATFORM, 'disable_motion_detection', {
+        return await self.hass.services.async_call(PLATFORM, SERVICE_DISABLE_MOTION, {
                                         "entity_id": self._origin_entity}, False)
 
     def disable_motion_detection(self) -> None:
-        return self.hass.services.call(PLATFORM, 'disable_motion_detection', {
+        return self.hass.services.call(PLATFORM, SERVICE_DISABLE_MOTION, {
                                         "entity_id": self._origin_entity}, False)

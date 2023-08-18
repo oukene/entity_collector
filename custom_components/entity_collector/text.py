@@ -2,7 +2,8 @@ import logging
 
 from .const import *
 import re
-from homeassistant.components.text import TextEntity, ATTR_MAX, ATTR_MIN, ATTR_PATTERN, ATTR_MODE, ATTR_VALUE, TextMode
+from homeassistant.components.text import *
+from homeassistant.components.text import ATTR_MIN, ATTR_MAX, SERVICE_SET_VALUE, ATTR_PATTERN, ATTR_VALUE
 
 from .device import EntityBase, async_setup
 
@@ -43,16 +44,16 @@ class EntityCollector(EntityBase, TextEntity):
     # method #########################################################################################
     async def async_set_value(self, value: str) -> None:
         if re.search("^input_text.", self._origin_entity):
-            return await self.hass.services.async_call('input_text', 'set_value', {
+            return await self.hass.services.async_call('input_text', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
         elif re.search("^text.", self._origin_entity):
-            return await self.hass.services.async_call('text', 'set_value', {
+            return await self.hass.services.async_call('text', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
 
     def set_value(self, value: str) -> None:
         if re.search("^input_text.", self._origin_entity):
-            return self.hass.services.call('input_text', 'set_value', {
+            return self.hass.services.call('input_text', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)
         elif re.search("^text.", self._origin_entity):
-            return self.hass.services.call('text', 'set_value', {
+            return self.hass.services.call('text', SERVICE_SET_VALUE, {
                                             "entity_id": self._origin_entity, ATTR_VALUE: value }, False)

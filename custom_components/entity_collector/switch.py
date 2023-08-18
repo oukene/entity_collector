@@ -29,18 +29,18 @@ class EntityCollector(EntityBase, SwitchEntity):
 
     # method ########################################################################################
     async def async_turn_on(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('homeassistant', 'turn_on', {
+        return await self.hass.services.async_call('homeassistant', SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_on(self, **kwargs) -> None:
-        self.hass.services.call('homeassistant', 'turn_on', {
+        self.hass.services.call('homeassistant', SERVICE_TURN_ON, {
                                         "entity_id": self._origin_entity}, False)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
-        return await self.hass.services.async_call('homeassistant', 'turn_off', {
+        return await self.hass.services.async_call('homeassistant', SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 
     def turn_off(self, **kwargs) -> None:
-        self.hass.services.call('homeassistant', 'turn_off', {
+        self.hass.services.call('homeassistant', SERVICE_TURN_OFF, {
                                         "entity_id": self._origin_entity}, False)
 

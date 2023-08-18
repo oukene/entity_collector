@@ -28,4 +28,9 @@ ENTITY_TYPE = {
     "lock": { "lock" },
     "camera": { "camera" },
     "media_player": { "media_player" },
+    "weather": { "weather" },
+    "remote": { "remote" },
+    "device_tracker": { "device_tracker" },
+    "siren": { "siren" },
+    "humidifier": { "humidifier" },
 }
