@@ -31,3 +31,11 @@ HomeAssistant 에서 구성요소를 하나의 디바이스로 모아보기 위�
 * light<br>
 * text<br>
 * input_text<br>
+* camera - 스트리밍 불가<br>
+* lock<br>
+* media_player<br>
+* weather<br>
+* device_tracker<br>
+* siren<br>
+* humidifier<br>
+
