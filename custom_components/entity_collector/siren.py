@@ -10,7 +10,7 @@ from homeassistant.const import *
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORM = "sensor"
+PLATFORM = "siren"
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Add sensors for passed config_entry in HA."""
