@@ -1,5 +1,3 @@
-
-
 DOMAIN = "entity_collector"
 NAME = "Entity Collector"
 VERSION = "1.0.0"

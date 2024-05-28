@@ -38,7 +38,7 @@ class EntityCollector(EntityBase, NumberEntity):
         return self._attributes.get(ATTR_STEP) if self._attributes.get(ATTR_STEP) != None else DEFAULT_STEP
 
     @property
-    def mode(self) -> float:
+    def mode(self) -> NumberMode:
         return self._attributes.get(ATTR_MODE)
 
     # method #########################################################################################

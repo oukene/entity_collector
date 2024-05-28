@@ -10,7 +10,8 @@ from homeassistant.const import (
 
 from .const import *
 from homeassistant.helpers.entity import async_generate_entity_id
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.core import Event, EventStateChangedData, callback
 
 from homeassistant.const import *
 
@@ -135,6 +136,7 @@ class EntityBase(Entity):
 
         self.entity_id = async_generate_entity_id(
             ENTITY_ID_FORMAT, "{}_{}".format(self._device.name, entity_name), hass=hass)
+        _LOGGER.debug("entity_id : %s", self.entity_id)
         self._name = "{}".format(entity_name)
         self._state = None
         self._attributes = {}
@@ -142,7 +144,7 @@ class EntityBase(Entity):
         self._unique_id = self.entity_id
         self._device = device
 
-        hass.data[DOMAIN][entry_id]["listener"].append(async_track_state_change(
+        hass.data[DOMAIN][entry_id]["listener"].append(async_track_state_change_event(
             self.hass, origin_entity, self.entity_listener))
         new_state = self.hass.states.get(origin_entity)
         old_state = self.hass.states.get(self.entity_id)
@@ -151,6 +153,11 @@ class EntityBase(Entity):
         self.entity_listener(origin_entity, old_state, new_state)
 
         self._device.publish_updates()
+
+    @callback  # type: ignore[misc]
+    def _state_changed_event(self, event: Event) -> None:
+        """state change event."""
+        self.entity_listener(event.data.get("entity_id"), event.data.get("old_state"), event.data.get("new_state"))
 
     def entity_listener(self, entity, old_state, new_state):
         _LOGGER.debug("call entity listener2")
